@@ -1,17 +1,26 @@
 const mongoose = require('mongoose')
 
-const MONGO_URI = process.env.MONGO_URI
-
-function connect() {
-	mongoose.connect(MONGO_URI, {
+mongoose
+	.connect(process.env.MONGO_URI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	})
-	mongoose.connection.on(
-		'error',
-		console.error.bind(console, 'MongoDB connection error:')
-	)
-	return mongoose.connection
-}
+	.then(() => {
+		console.log('MongoDB Connected')
+	})
 
-module.exports = { connect }
+mongoose.connection.on(
+	'error',
+	console.error.bind(console, 'MongoDB connection error:')
+)
+
+mongoose.connection.on('disconnected', () => {
+	console.log('MongoDB disconnected')
+})
+
+process.on('SIGINT', () => {
+	mongoose.connection.close(() => {
+		console.log('MongoDB disconnected through app termination')
+		process.exit(0)
+	})
+})
