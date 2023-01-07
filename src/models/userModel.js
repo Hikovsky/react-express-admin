@@ -13,12 +13,6 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			requierd: true,
 		},
-		words: [
-			{
-				type: mongoose.Schema.Types.ObjectId,
-				ref: 'Word',
-			},
-		],
 	},
 	{ timestamps: true }
 )

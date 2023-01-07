@@ -14,14 +14,6 @@ const wordSchema = new mongoose.Schema({
 		lowertcase: true,
 		trim: true,
 	},
-	completed: {
-		type: Boolean,
-		default: false,
-	},
-	owner: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
-	},
 })
 
 module.exports = mongoose.model('Word', wordSchema)

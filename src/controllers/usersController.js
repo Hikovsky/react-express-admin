@@ -1,4 +1,3 @@
-const createError = require('http-errors')
 const User = require('../models/userModel')
 const validator = require('../validators/userValidators')
 
